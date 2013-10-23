@@ -6,9 +6,20 @@ title: Two Envelopes
   <div class="col-sm-12">
     <h1>{{page.title}}</h1>
 
-    <h2>Scenario 1</h2>
+    <div ng-controller="ControlScenarioCtrl">
+      {% raw %}
+        <h2>Scenario 1</h2>
 
-    <p>There are two envelopes. In the envelope handed to you there is definitely $X.  In the other envelope, there is either $2X or $0.  Whether or not the other envelope contains $2X or $0 on this particular occasion has already been decided, say by toss of fair coin (i.e. it's random), and so the other envelope already contains either $2X or $0, each outcome being 50% likely.</p>
-    <p>Do you KEEP or SWAP?</p>
+        <p>There are two envelopes. In the envelope handed to you there is definitely ${{amount}}.  In the other envelope, there is either ${{amount * 2}} or $0.  Whether or not the other envelope contains ${{amount * 2}} or $0 on this particular occasion has already been decided, say by toss of fair coin (i.e. it's random), and so the other envelope already contains either ${{amount * 2}} or $0, each outcome being 50% likely.</p>
+        <p>Do you KEEP or SWAP?</p>
+
+        <form role="form">
+          <div class="form-group">
+            <label for="scenario1-amount">Amount</label>
+            <input id="scenario1-amount" type="number" ng-model="amount" class="form-control" />
+          </div>
+        </form>
+      {% endraw %}
+    </div>
   </div>
 </div>
