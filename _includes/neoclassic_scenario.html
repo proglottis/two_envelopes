@@ -1,0 +1,36 @@
+{% raw %}
+  <h2>Scenario 3 - Neoclassic</h2>
+
+  <p>There are two envelopes. Your envelope has {{envelope1 | currency}}</p>
+
+  <p>
+    <button ng-click="keep()" class="btn btn-primary">KEEP</button>
+    <button ng-click="swap()" class="btn btn-primary">SWAP</button>
+    <button ng-click="reset()" class="btn btn-default">Reset</button>
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Payout</th>
+        <th>Total</th>
+        <th>Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{count | number}}</td>
+        <td>{{payout | currency}}</td>
+        <td>{{total | currency}}</td>
+        <td>{{total / count | currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form role="form">
+    <div class="form-group">
+      <label for="scenario2-amount">Amount</label>
+      <input id="scenario2-amount" type="number" ng-model="amount" class="form-control" />
+    </div>
+  </form>
+{% endraw %}
