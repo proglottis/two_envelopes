@@ -5,13 +5,11 @@ function ControlScenarioCtrl($scope) {
   $scope.total = 0.0;
 
   $scope.keep = function() {
-    $scope.setEnvelopes()
     $scope.payout = $scope.envelope1;
     $scope.updateTotal();
   }
 
   $scope.swap = function() {
-    $scope.setEnvelopes()
     $scope.payout = $scope.envelope2;
     $scope.updateTotal();
   }
@@ -19,6 +17,7 @@ function ControlScenarioCtrl($scope) {
   $scope.updateTotal = function() {
     $scope.count += 1;
     $scope.total += $scope.payout;
+    $scope.setEnvelopes()
   }
 
   $scope.setEnvelopes = function() {
@@ -30,7 +29,10 @@ function ControlScenarioCtrl($scope) {
     $scope.count = 0;
     $scope.payout = 0.0;
     $scope.total = 0.0;
+    $scope.setEnvelopes()
   }
+
+  $scope.setEnvelopes()
 }
 
 function ClassicScenarioCtrl($scope) {
@@ -40,13 +42,11 @@ function ClassicScenarioCtrl($scope) {
   $scope.total = 0.0;
 
   $scope.keep = function() {
-    $scope.setEnvelopes()
     $scope.payout = $scope.envelope1;
     $scope.updateTotal();
   }
 
   $scope.swap = function() {
-    $scope.setEnvelopes()
     $scope.payout = $scope.envelope2;
     $scope.updateTotal();
   }
@@ -54,6 +54,7 @@ function ClassicScenarioCtrl($scope) {
   $scope.updateTotal = function() {
     $scope.count += 1;
     $scope.total += $scope.payout;
+    $scope.setEnvelopes()
   }
 
   $scope.setEnvelopes = function() {
@@ -70,5 +71,50 @@ function ClassicScenarioCtrl($scope) {
     $scope.count = 0;
     $scope.payout = 0.0;
     $scope.total = 0.0;
+    $scope.setEnvelopes()
   }
+
+  $scope.setEnvelopes()
+}
+
+function NeoclassicScenarioCtrl($scope) {
+  $scope.amount = 100.0;
+  $scope.count = 0;
+  $scope.payout = 0.0;
+  $scope.total = 0.0;
+
+  $scope.keep = function() {
+    $scope.payout = $scope.envelope1;
+    $scope.updateTotal();
+  }
+
+  $scope.swap = function() {
+    $scope.payout = $scope.envelope2;
+    $scope.updateTotal();
+  }
+
+  $scope.updateTotal = function() {
+    $scope.count += 1;
+    $scope.total += $scope.payout;
+    $scope.setEnvelopes()
+  }
+
+  $scope.setEnvelopes = function() {
+    if(Math.floor(Math.random() * 2)) {
+      $scope.envelope1 = $scope.amount;
+      $scope.envelope2 = $scope.amount * 2;
+    } else {
+      $scope.envelope1 = $scope.amount * 2;
+      $scope.envelope2 = $scope.amount;
+    }
+  }
+
+  $scope.reset = function() {
+    $scope.count = 0;
+    $scope.payout = 0.0;
+    $scope.total = 0.0;
+    $scope.setEnvelopes()
+  }
+
+  $scope.setEnvelopes()
 }
