@@ -1,3 +1,4 @@
 name: Two Envelopes
 markdown: redcarpet
 pygments: true
+baseurl: /two_envelopes
