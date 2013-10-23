@@ -1,4 +1,18 @@
-function ControlScenarioCtrl($scope) {
+angular.module('twoEnvelopes', ['ui.bootstrap']);
+
+function SettingsModalCtrl($scope, $modalInstance, settings) {
+  $scope.settings = settings;
+
+  $scope.ok = function() {
+    $modalInstance.close(settings);
+  }
+
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  }
+}
+
+function ControlScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
   $scope.count = 0;
   $scope.payout = 0.0;
@@ -32,10 +46,24 @@ function ControlScenarioCtrl($scope) {
     $scope.setEnvelopes()
   }
 
+  $scope.openSettings = function() {
+    var modal = $modal.open({
+      templateUrl: 'settings.html',
+      controller: SettingsModalCtrl,
+      resolve: {
+        settings: function() { return {amount: $scope.amount}; }
+      }
+    });
+    modal.result.then(function(settings) {
+      $scope.amount = settings.amount;
+      $scope.reset();
+    });
+  }
+
   $scope.setEnvelopes()
 }
 
-function ClassicScenarioCtrl($scope) {
+function ClassicScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
   $scope.count = 0;
   $scope.payout = 0.0;
@@ -72,6 +100,20 @@ function ClassicScenarioCtrl($scope) {
     $scope.payout = 0.0;
     $scope.total = 0.0;
     $scope.setEnvelopes()
+  }
+
+  $scope.openSettings = function() {
+    var modal = $modal.open({
+      templateUrl: 'settings.html',
+      controller: SettingsModalCtrl,
+      resolve: {
+        settings: function() { return {amount: $scope.amount}; }
+      }
+    });
+    modal.result.then(function(settings) {
+      $scope.amount = settings.amount;
+      $scope.reset();
+    });
   }
 
   $scope.setEnvelopes()
