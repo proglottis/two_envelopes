@@ -4,22 +4,49 @@ title: Two Envelopes
 ---
 <div class="row">
   <div class="col-sm-12">
-    <h1>{{page.title}}</h1>
-
-    <div ng-controller="ControlScenarioCtrl">
-      {% raw %}
-        <h2>Scenario 1</h2>
-
-        <p>There are two envelopes. In the envelope handed to you there is definitely ${{amount}}.  In the other envelope, there is either ${{amount * 2}} or $0.  Whether or not the other envelope contains ${{amount * 2}} or $0 on this particular occasion has already been decided, say by toss of fair coin (i.e. it's random), and so the other envelope already contains either ${{amount * 2}} or $0, each outcome being 50% likely.</p>
-        <p>Do you KEEP or SWAP?</p>
-
-        <form role="form">
-          <div class="form-group">
-            <label for="scenario1-amount">Amount</label>
-            <input id="scenario1-amount" type="number" ng-model="amount" class="form-control" />
-          </div>
-        </form>
-      {% endraw %}
+    <div class="page-header">
+      <h1>{{page.title}}</h1>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div ng-controller="ControlScenarioCtrl" class="col-sm-6">
+    {% raw %}
+      <h2>Scenario 1 - Control</h2>
+
+      <p>There are two envelopes. In the envelope handed to you there is definitely ${{amount}}.  In the other envelope, there is either ${{amount * 2}} or $0.  Whether or not the other envelope contains ${{amount * 2}} or $0 on this particular occasion has already been decided, say by toss of fair coin (i.e. it's random), and so the other envelope already contains either ${{amount * 2}} or $0, each outcome being 50% likely.</p>
+      <p>Do you KEEP or SWAP?</p>
+
+      <p>
+        <button ng-click="keep()" class="btn btn-primary">KEEP</button>
+        <button ng-click="swap()" class="btn btn-primary">SWAP</button>
+        <button ng-click="reset()" class="btn btn-default">Reset</button>
+      </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Payout</th>
+            <th>Total</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{count | number}}</td>
+            <td>{{payout | currency}}</td>
+            <td>{{total | currency}}</td>
+            <td>{{total / count | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form role="form">
+        <div class="form-group">
+          <label for="scenario1-amount">Amount</label>
+          <input id="scenario1-amount" type="number" ng-model="amount" class="form-control" />
+        </div>
+      </form>
+    {% endraw %}
   </div>
 </div>
