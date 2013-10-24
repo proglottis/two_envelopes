@@ -1,5 +1,45 @@
 angular.module('twoEnvelopes', ['ui.bootstrap']);
 
+var Game = (function() {
+  function Game() {
+    this.count = 0;
+    this.total = 0;
+    this.payout = 0;
+  }
+
+  Game.prototype.keep = function() {
+    this.payout = this.envelope1;
+    this.updateTotal();
+  }
+
+  Game.prototype.swap = function() {
+    this.payout = this.envelope2;
+    this.updateTotal();
+  }
+
+  Game.prototype.updateTotal = function() {
+    this.count += 1;
+    this.total += this.payout;
+  }
+
+  Game.prototype.setupControl = function(amount) {
+    this.envelope1 = amount;
+    this.envelope2 = amount * 2 * Math.floor(Math.random() * 2);
+  }
+
+  Game.prototype.setupClassic = function(amount) {
+    if(Math.floor(Math.random() * 2)) {
+      this.envelope1 = amount;
+      this.envelope2 = amount * 2;
+    } else {
+      this.envelope1 = amount * 2;
+      this.envelope2 = amount;
+    }
+  }
+
+  return Game;
+})();
+
 function SettingsModalCtrl($scope, $modalInstance, settings) {
   $scope.settings = settings;
 
@@ -14,36 +54,22 @@ function SettingsModalCtrl($scope, $modalInstance, settings) {
 
 function ControlScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
-  $scope.count = 0;
-  $scope.payout = 0.0;
-  $scope.total = 0.0;
+  $scope.game = new Game();
+  $scope.game.setupControl($scope.amount);
 
   $scope.keep = function() {
-    $scope.payout = $scope.envelope1;
-    $scope.updateTotal();
+    $scope.game.keep();
+    $scope.game.setupControl($scope.amount);
   }
 
   $scope.swap = function() {
-    $scope.payout = $scope.envelope2;
-    $scope.updateTotal();
-  }
-
-  $scope.updateTotal = function() {
-    $scope.count += 1;
-    $scope.total += $scope.payout;
-    $scope.setEnvelopes()
-  }
-
-  $scope.setEnvelopes = function() {
-    $scope.envelope1 = $scope.amount;
-    $scope.envelope2 = $scope.amount * 2 * Math.floor(Math.random() * 2);
+    $scope.game.swap();
+    $scope.game.setupControl($scope.amount);
   }
 
   $scope.reset = function() {
-    $scope.count = 0;
-    $scope.payout = 0.0;
-    $scope.total = 0.0;
-    $scope.setEnvelopes()
+    $scope.game = new Game();
+    $scope.game.setupControl($scope.amount);
   }
 
   $scope.openSettings = function() {
@@ -59,47 +85,26 @@ function ControlScenarioCtrl($scope, $modal) {
       $scope.reset();
     });
   }
-
-  $scope.setEnvelopes()
 }
 
 function ClassicScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
-  $scope.count = 0;
-  $scope.payout = 0.0;
-  $scope.total = 0.0;
+  $scope.game = new Game();
+  $scope.game.setupClassic($scope.amount);
 
   $scope.keep = function() {
-    $scope.payout = $scope.envelope1;
-    $scope.updateTotal();
+    $scope.game.keep();
+    $scope.game.setupClassic($scope.amount);
   }
 
   $scope.swap = function() {
-    $scope.payout = $scope.envelope2;
-    $scope.updateTotal();
-  }
-
-  $scope.updateTotal = function() {
-    $scope.count += 1;
-    $scope.total += $scope.payout;
-    $scope.setEnvelopes()
-  }
-
-  $scope.setEnvelopes = function() {
-    if(Math.floor(Math.random() * 2)) {
-      $scope.envelope1 = $scope.amount;
-      $scope.envelope2 = $scope.amount * 2;
-    } else {
-      $scope.envelope1 = $scope.amount * 2;
-      $scope.envelope2 = $scope.amount;
-    }
+    $scope.game.swap();
+    $scope.game.setupClassic($scope.amount);
   }
 
   $scope.reset = function() {
-    $scope.count = 0;
-    $scope.payout = 0.0;
-    $scope.total = 0.0;
-    $scope.setEnvelopes()
+    $scope.game = new Game();
+    $scope.game.setupClassic($scope.amount);
   }
 
   $scope.openSettings = function() {
@@ -115,48 +120,25 @@ function ClassicScenarioCtrl($scope, $modal) {
       $scope.reset();
     });
   }
-
-  $scope.setEnvelopes()
 }
 
 function NeoclassicScenarioCtrl($scope) {
   $scope.amount = 100.0;
-  $scope.count = 0;
-  $scope.payout = 0.0;
-  $scope.total = 0.0;
+  $scope.game = new Game();
+  $scope.game.setupClassic($scope.amount);
 
   $scope.keep = function() {
-    $scope.payout = $scope.envelope1;
-    $scope.updateTotal();
+    $scope.game.keep();
+    $scope.game.setupClassic($scope.amount);
   }
 
   $scope.swap = function() {
-    $scope.payout = $scope.envelope2;
-    $scope.updateTotal();
-  }
-
-  $scope.updateTotal = function() {
-    $scope.count += 1;
-    $scope.total += $scope.payout;
-    $scope.setEnvelopes()
-  }
-
-  $scope.setEnvelopes = function() {
-    if(Math.floor(Math.random() * 2)) {
-      $scope.envelope1 = $scope.amount;
-      $scope.envelope2 = $scope.amount * 2;
-    } else {
-      $scope.envelope1 = $scope.amount * 2;
-      $scope.envelope2 = $scope.amount;
-    }
+    $scope.game.swap();
+    $scope.game.setupClassic($scope.amount);
   }
 
   $scope.reset = function() {
-    $scope.count = 0;
-    $scope.payout = 0.0;
-    $scope.total = 0.0;
-    $scope.setEnvelopes()
+    $scope.game = new Game();
+    $scope.game.setupClassic($scope.amount);
   }
-
-  $scope.setEnvelopes()
 }

@@ -1,7 +1,7 @@
 {% raw %}
   <h2>The neoclassic envelope game</h2>
 
-  <p>There are two envelopes. Your envelope has {{envelope1 | currency}}</p>
+  <p>There are two envelopes. Your envelope has {{game.envelope1 | currency}}</p>
 
   <p>
     <button ng-click="keep()" class="btn btn-primary">KEEP</button>
@@ -19,10 +19,10 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{count | number}}</td>
-        <td>{{payout | currency}}</td>
-        <td>{{total | currency}}</td>
-        <td>{{total / count | currency}}</td>
+        <td>{{game.count | number}}</td>
+        <td>{{game.payout | currency}}</td>
+        <td>{{game.total | currency}}</td>
+        <td>{{game.total / game.count | currency}}</td>
       </tr>
     </tbody>
   </table>

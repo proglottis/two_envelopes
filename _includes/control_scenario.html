@@ -27,10 +27,10 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{count | number}}</td>
-        <td>{{payout | currency}}</td>
-        <td>{{total | currency}}</td>
-        <td>{{total / count | currency}}</td>
+        <td>{{game.count | number}}</td>
+        <td>{{game.payout | currency}}</td>
+        <td>{{game.total | currency}}</td>
+        <td>{{game.total / game.count | currency}}</td>
       </tr>
     </tbody>
   </table>
