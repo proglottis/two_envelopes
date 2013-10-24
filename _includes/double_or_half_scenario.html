@@ -1,7 +1,7 @@
 {% raw %}
   <h2>The "double-or-half" envelope game</h2>
 
-  <p>There are two envelopes. In the envelope handed to you there is definitely {{amount | currency}}. In the other envelope, there is NOTHING YET.  Whether or not the other envelope contains $2X or $X/2 on this particular occasion will be decided, say by toss of fair coin (i.e. it's random, 50/50), after the player has made his decision.</p>
+  <p>There are two envelopes. In the envelope handed to you there is definitely {{amount | currency}}.  Whether the other envelope contains {{amount * 2 | currency}} or {{amount / 2 | currency}} on any particular occasion is decided by flipping a fair coin, so half the time the other envelope will yield {{amount * 2 | currency}} and half of the time it will yield {{amount / 2 | currency}}.</p>
   <p>Do you KEEP or SWAP?</p>
 
 {% endraw %}

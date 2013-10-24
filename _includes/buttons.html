@@ -1,25 +1,34 @@
 {% raw %}
   <div class="row">
     <div class="col-sm-4">
-      <div class="input-group">
+      <div class="input-group" ng-show="repeater.enabled">
         <span class="input-group-btn">
           <button ng-click="keep()" class="btn btn-primary">KEEP</button>
         </span>
-        <input ng-model="keepCount" type="number" class="form-control">
+        <input ng-model="repeater.keepCount" type="number" class="form-control" min="1" max="1000000">
       </div>
+      <button ng-hide="repeater.enabled" ng-click="keep()" class="btn btn-primary btn-block">KEEP</button>
     </div>
     <div class="col-sm-4">
-      <div class="input-group">
+      <div class="input-group" ng-show="repeater.enabled">
         <span class="input-group-btn">
           <button ng-click="swap()" class="btn btn-primary">SWAP</button>
         </span>
-        <input ng-model="swapCount" type="number" class="form-control">
+        <input ng-model="repeater.swapCount" type="number" class="form-control" min="1" max="1000000">
       </div>
+      <button ng-hide="repeater.enabled" ng-click="swap()" class="btn btn-primary btn-block">SWAP</button>
     </div>
     <div class="col-sm-4">
       <div class="btn-group">
         <button ng-click="reset()" class="btn btn-default">Reset</button>
         <button ng-click="openSettings()" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-show="repeater">
+    <div class="col-sm-12">
+      <div class="checkbox">
+        <label><input type="checkbox" ng-model="repeater.enabled" /> Repeat</label>
       </div>
     </div>
   </div>

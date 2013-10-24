@@ -1,7 +1,10 @@
 {% raw %}
   <h2>The bounded peeking envelope game</h2>
 
-  <p>There are two envelopes. Your envelope has {{game.envelope1 | currency}}</p>
+  <p>There are two envelopes. One contains twice as much money as the other.  One of the two is randomly assigned to you.  You peek in your envelope to discover a cheque made out for {{game.envelope1 | currency}}.</p>
+  <p>The value distribution is as follows. {{1 | currency}} is the lower bound, the smallest unit of currency in the game; {{max | currency}} is the upper bound.</p>
+  <p>Do you KEEP or SWAP?</p>
+
 {% endraw %}
 {% include buttons.html %}
 {% raw %}

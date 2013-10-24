@@ -38,7 +38,7 @@ var Game = (function() {
   }
 
   Game.prototype.setupBounded = function(min, max) {
-    var amount = Math.floor(Math.random() * (max - min) + min);
+    var amount = Math.floor(Math.random() * ((max - min) / 2) + min);
     if(Math.floor(Math.random() * 2)) {
       this.envelope1 = amount;
       this.envelope2 = amount * 2;
@@ -74,21 +74,20 @@ function SettingsModalCtrl($scope, $modalInstance, settings) {
 }
 
 function ControlScenarioCtrl($scope, $modal) {
+  $scope.repeater = { keepCount: 1, swapCount: 1, enabled: false }
   $scope.amount = 100.0;
-  $scope.keepCount = 1;
-  $scope.swapCount = 1;
   $scope.game = new Game();
   $scope.game.setupControl($scope.amount);
 
   $scope.keep = function() {
-    for(var i = 0; i < $scope.keepCount; i++) {
+    for(var i = 0; i < $scope.repeater.keepCount; i++) {
       $scope.game.keep();
       $scope.game.setupControl($scope.amount);
     }
   }
 
   $scope.swap = function() {
-    for(var i = 0; i < $scope.swapCount; i++) {
+    for(var i = 0; i < $scope.repeater.swapCount; i++) {
       $scope.game.swap();
       $scope.game.setupControl($scope.amount);
     }
@@ -115,21 +114,20 @@ function ControlScenarioCtrl($scope, $modal) {
 }
 
 function ClassicScenarioCtrl($scope, $modal) {
+  $scope.repeater = { keepCount: 1, swapCount: 1, enabled: false }
   $scope.amount = 100.0;
-  $scope.keepCount = 1;
-  $scope.swapCount = 1;
   $scope.game = new Game();
   $scope.game.setupClassic($scope.amount);
 
   $scope.keep = function() {
-    for(var i = 0; i < $scope.keepCount; i++) {
+    for(var i = 0; i < $scope.repeater.keepCount; i++) {
       $scope.game.keep();
       $scope.game.setupClassic($scope.amount);
     }
   }
 
   $scope.swap = function() {
-    for(var i = 0; i < $scope.swapCount; i++) {
+    for(var i = 0; i < $scope.repeater.swapCount; i++) {
       $scope.game.swap();
       $scope.game.setupClassic($scope.amount);
     }
@@ -156,30 +154,23 @@ function ClassicScenarioCtrl($scope, $modal) {
 }
 
 function BoundedPeekingScenarioCtrl($scope, $modal) {
-  $scope.min = 1;
-  $scope.max = 3000000000;
-  $scope.keepCount = 1;
-  $scope.swapCount = 1;
+  $scope.max = 3000;
   $scope.game = new Game();
-  $scope.game.setupBounded($scope.min, $scope.max);
+  $scope.game.setupBounded(1, $scope.max);
 
   $scope.keep = function() {
-    for(var i = 0; i < $scope.keepCount; i++) {
-      $scope.game.keep();
-      $scope.game.setupBounded($scope.min, $scope.max);
-    }
+    $scope.game.keep();
+    $scope.game.setupBounded(1, $scope.max);
   }
 
   $scope.swap = function() {
-    for(var i = 0; i < $scope.swapCount; i++) {
-      $scope.game.swap();
-      $scope.game.setupBounded($scope.min, $scope.max);
-    }
+    $scope.game.swap();
+    $scope.game.setupBounded(1, $scope.max);
   }
 
   $scope.reset = function() {
     $scope.game = new Game();
-    $scope.game.setupBounded($scope.min, $scope.max);
+    $scope.game.setupBounded(1, $scope.max);
   }
 
   $scope.openSettings = function() {
@@ -187,11 +178,10 @@ function BoundedPeekingScenarioCtrl($scope, $modal) {
       templateUrl: 'settings_bounded.html',
       controller: SettingsModalCtrl,
       resolve: {
-        settings: function() { return {min: $scope.min, max: $scope.max}; }
+        settings: function() { return {max: $scope.max}; }
       }
     });
     modal.result.then(function(settings) {
-      $scope.min = settings.min;
       $scope.max = settings.max;
       $scope.reset();
     });
@@ -199,20 +189,19 @@ function BoundedPeekingScenarioCtrl($scope, $modal) {
 }
 
 function DoubleOrHalfScenarioCtrl($scope, $modal) {
+  $scope.repeater = { keepCount: 1, swapCount: 1, enabled: false }
   $scope.amount = 100.0;
-  $scope.keepCount = 1;
-  $scope.swapCount = 1;
   $scope.game = new Game();
 
   $scope.keep = function() {
-    for(var i = 0; i < $scope.keepCount; i++) {
+    for(var i = 0; i < $scope.repeater.keepCount; i++) {
       $scope.game.setupDoubleOrHalf($scope.amount);
       $scope.game.keep();
     }
   }
 
   $scope.swap = function() {
-    for(var i = 0; i < $scope.swapCount; i++) {
+    for(var i = 0; i < $scope.repeater.swapCount; i++) {
       $scope.game.setupDoubleOrHalf($scope.amount);
       $scope.game.swap();
     }
