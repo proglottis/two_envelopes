@@ -37,6 +37,17 @@ var Game = (function() {
     }
   }
 
+  Game.prototype.setupBounded = function(min, max) {
+    var amount = Math.floor(Math.random() * (max - min) + min);
+    if(Math.floor(Math.random() * 2)) {
+      this.envelope1 = amount;
+      this.envelope2 = amount * 2;
+    } else {
+      this.envelope1 = amount * 2;
+      this.envelope2 = amount;
+    }
+  }
+
   return Game;
 })();
 
@@ -122,23 +133,39 @@ function ClassicScenarioCtrl($scope, $modal) {
   }
 }
 
-function NeoclassicScenarioCtrl($scope) {
-  $scope.amount = 100.0;
+function BoundedPeekingScenarioCtrl($scope, $modal) {
+  $scope.min = 1;
+  $scope.max = 3000000000;
   $scope.game = new Game();
-  $scope.game.setupClassic($scope.amount);
+  $scope.game.setupBounded($scope.min, $scope.max);
 
   $scope.keep = function() {
     $scope.game.keep();
-    $scope.game.setupClassic($scope.amount);
+    $scope.game.setupBounded($scope.min, $scope.max);
   }
 
   $scope.swap = function() {
     $scope.game.swap();
-    $scope.game.setupClassic($scope.amount);
+    $scope.game.setupBounded($scope.min, $scope.max);
   }
 
   $scope.reset = function() {
     $scope.game = new Game();
-    $scope.game.setupClassic($scope.amount);
+    $scope.game.setupBounded($scope.min, $scope.max);
+  }
+
+  $scope.openSettings = function() {
+    var modal = $modal.open({
+      templateUrl: 'settings_bounded.html',
+      controller: SettingsModalCtrl,
+      resolve: {
+        settings: function() { return {min: $scope.min, max: $scope.max}; }
+      }
+    });
+    modal.result.then(function(settings) {
+      $scope.min = settings.min;
+      $scope.max = settings.max;
+      $scope.reset();
+    });
   }
 }
