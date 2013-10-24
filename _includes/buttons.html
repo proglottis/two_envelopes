@@ -1,0 +1,26 @@
+{% raw %}
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button ng-click="keep()" class="btn btn-primary">KEEP</button>
+        </span>
+        <input ng-model="keepCount" type="number" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button ng-click="swap()" class="btn btn-primary">SWAP</button>
+        </span>
+        <input ng-model="swapCount" type="number" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="btn-group">
+        <button ng-click="reset()" class="btn btn-default">Reset</button>
+        <button ng-click="openSettings()" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>
+      </div>
+    </div>
+  </div>
+{% endraw %}

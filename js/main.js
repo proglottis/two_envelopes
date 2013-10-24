@@ -65,17 +65,23 @@ function SettingsModalCtrl($scope, $modalInstance, settings) {
 
 function ControlScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
+  $scope.keepCount = 1;
+  $scope.swapCount = 1;
   $scope.game = new Game();
   $scope.game.setupControl($scope.amount);
 
   $scope.keep = function() {
-    $scope.game.keep();
-    $scope.game.setupControl($scope.amount);
+    for(var i = 0; i < $scope.keepCount; i++) {
+      $scope.game.keep();
+      $scope.game.setupControl($scope.amount);
+    }
   }
 
   $scope.swap = function() {
-    $scope.game.swap();
-    $scope.game.setupControl($scope.amount);
+    for(var i = 0; i < $scope.swapCount; i++) {
+      $scope.game.swap();
+      $scope.game.setupControl($scope.amount);
+    }
   }
 
   $scope.reset = function() {
@@ -100,17 +106,23 @@ function ControlScenarioCtrl($scope, $modal) {
 
 function ClassicScenarioCtrl($scope, $modal) {
   $scope.amount = 100.0;
+  $scope.keepCount = 1;
+  $scope.swapCount = 1;
   $scope.game = new Game();
   $scope.game.setupClassic($scope.amount);
 
   $scope.keep = function() {
-    $scope.game.keep();
-    $scope.game.setupClassic($scope.amount);
+    for(var i = 0; i < $scope.keepCount; i++) {
+      $scope.game.keep();
+      $scope.game.setupClassic($scope.amount);
+    }
   }
 
   $scope.swap = function() {
-    $scope.game.swap();
-    $scope.game.setupClassic($scope.amount);
+    for(var i = 0; i < $scope.swapCount; i++) {
+      $scope.game.swap();
+      $scope.game.setupClassic($scope.amount);
+    }
   }
 
   $scope.reset = function() {
@@ -136,17 +148,23 @@ function ClassicScenarioCtrl($scope, $modal) {
 function BoundedPeekingScenarioCtrl($scope, $modal) {
   $scope.min = 1;
   $scope.max = 3000000000;
+  $scope.keepCount = 1;
+  $scope.swapCount = 1;
   $scope.game = new Game();
   $scope.game.setupBounded($scope.min, $scope.max);
 
   $scope.keep = function() {
-    $scope.game.keep();
-    $scope.game.setupBounded($scope.min, $scope.max);
+    for(var i = 0; i < $scope.keepCount; i++) {
+      $scope.game.keep();
+      $scope.game.setupBounded($scope.min, $scope.max);
+    }
   }
 
   $scope.swap = function() {
-    $scope.game.swap();
-    $scope.game.setupBounded($scope.min, $scope.max);
+    for(var i = 0; i < $scope.swapCount; i++) {
+      $scope.game.swap();
+      $scope.game.setupBounded($scope.min, $scope.max);
+    }
   }
 
   $scope.reset = function() {
