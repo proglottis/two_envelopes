@@ -48,6 +48,16 @@ var Game = (function() {
     }
   }
 
+  Game.prototype.setupDoubleOrHalf = function(amount) {
+    if(Math.floor(Math.random() * 2)) {
+      this.envelope1 = amount;
+      this.envelope2 = amount * 2;
+    } else {
+      this.envelope1 = amount;
+      this.envelope2 = amount / 2;
+    }
+  }
+
   return Game;
 })();
 
@@ -183,6 +193,45 @@ function BoundedPeekingScenarioCtrl($scope, $modal) {
     modal.result.then(function(settings) {
       $scope.min = settings.min;
       $scope.max = settings.max;
+      $scope.reset();
+    });
+  }
+}
+
+function DoubleOrHalfScenarioCtrl($scope, $modal) {
+  $scope.amount = 100.0;
+  $scope.keepCount = 1;
+  $scope.swapCount = 1;
+  $scope.game = new Game();
+
+  $scope.keep = function() {
+    for(var i = 0; i < $scope.keepCount; i++) {
+      $scope.game.setupDoubleOrHalf($scope.amount);
+      $scope.game.keep();
+    }
+  }
+
+  $scope.swap = function() {
+    for(var i = 0; i < $scope.swapCount; i++) {
+      $scope.game.setupDoubleOrHalf($scope.amount);
+      $scope.game.swap();
+    }
+  }
+
+  $scope.reset = function() {
+    $scope.game = new Game();
+  }
+
+  $scope.openSettings = function() {
+    var modal = $modal.open({
+      templateUrl: 'settings.html',
+      controller: SettingsModalCtrl,
+      resolve: {
+        settings: function() { return {amount: $scope.amount}; }
+      }
+    });
+    modal.result.then(function(settings) {
+      $scope.amount = settings.amount;
       $scope.reset();
     });
   }
